@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Konark Sun Temple – Interactive 3D Model</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Styles -->
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 90vh;
+      background-color: #f5f5f5;
+    }
+
+    /* Hotspot Button */
+    .Hotspot {
+      background: #ffffff;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      border: 3px solid #007bff;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .Hotspot:hover {
+      transform: scale(1.15);
+    }
+
+    /* Annotation Box */
+    .HotspotAnnotation {
+      display: none;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      padding: 15px;
+      position: absolute;
+      width: 280px;
+      left: 30px;
+      top: -20px;
+      color: #333;
+      line-height: 1.5;
+      z-index: 100;
+      pointer-events: auto;
+    }
+
+    /* Show annotation when active */
+    .active .HotspotAnnotation {
+      display: block;
+    }
+
+    h3 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      color: #007bff;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 600px) {
+      .HotspotAnnotation {
+        width: 220px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 3D Model -->
+  <model-viewer
+    id="konark-viewer"
+    src="finalKonark-v1 (4).glb"
+    ar
+    ar-modes="scene-viewer webxr quick-look"
+    camera-controls
+    shadow-intensity="1"
+    exposure="1">
+
+    <!-- Hotspot 1 -->
+    <button
+      class="Hotspot"
+      slot="hotspot-1"
+      data-position="0.10445672255424832m -0.7710759617459311m -4.372431650946587m"
+      data-normal="-0.9717788715225063m 0.1797882146781417m 0.15271549602214804m">
+
+      <div class="HotspotAnnotation">
+        <h3>Main Tower (Vimana)</h3>
+        <p>
+          The principal shrine of the Konark Sun Temple, symbolizing Mount Meru,
+          the cosmic center of the universe in Hindu cosmology.
+        </p>
+      </div>
+    </button>
+
+    <!-- Hotspot 2 -->
+    <button
+      class="Hotspot"
+      slot="hotspot-2"
+      data-position="0.6554348898181508m -1.9247499110575936m -1.3890951899779624m"
+      data-normal="-0.0009047585838649483m 0.9999728723895843m -0.007309986103211903m">
+
+      <div class="HotspotAnnotation">
+        <h3>Jagamohana</h3>
+        <p>
+          The audience hall where devotees gathered. It features a massive
+          pyramidal roof decorated with intricate stone carvings.
+        </p>
+      </div>
+    </button>
+
+  </model-viewer>
+
+  <!-- Hotspot Logic -->
+  <script>
+    const hotspots = document.querySelectorAll(".Hotspot");
+
+    hotspots.forEach((hotspot) => {
+      hotspot.addEventListener("click", (event) => {
+        // Prevent model rotation
+        event.stopPropagation();
+
+        // Close other annotations
+        hotspots.forEach(h => {
+          if (h !== hotspot) h.classList.remove("active");
+        });
+
+        // Toggle current
+        hotspot.classList.toggle("active");
+      });
+    });
+
+    // Close all annotations when clicking outside
+    document.addEventListener("click", () => {
+      hotspots.forEach(h => h.classList.remove("active"));
+    });
+  </script>
+
+  <!-- Model Viewer Library -->
+  <script type="module"
+    src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js">
+  </script>
+
+</body>
+</html>
