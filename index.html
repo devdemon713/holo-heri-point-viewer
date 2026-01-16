@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Konark Temple Interactive</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style>
+      model-viewer {
+        width: 100%;
+        height: 98vh;
+        background-color: #f5f5f5;
+      }
+
+      /* THE NEW TOGGLE BUTTON - Top Right */
+      #info-master-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 999;
+        padding: 12px 24px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-family: 'Segoe UI', sans-serif;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        transition: background 0.3s;
+      }
+
+      #info-master-button:hover {
+        background-color: #0056b3;
+      }
+
+      /* Professional Box Styling (Your Text Inside) */
+      .HotspotAnnotation {
+        display: none; 
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        padding: 15px;
+        position: absolute;
+        width: 260px;
+        left: 28px;
+        top: -24px;
+        color: #444;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        z-index: 100;
+        pointer-events: none;
+        border-left: 5px solid #007bff;
+      }
+
+      /* Bold Title Style */
+      .HotspotAnnotation b {
+        display: block;
+        color: #007bff;
+        font-size: 15px;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+      }
+
+      /* Show text when a dot is clicked */
+      .Hotspot.active .HotspotAnnotation {
+        display: block !important;
+      }
+
+      /* HIDE Dots by default */
+      .Hotspot {
+        display: none; 
+        background: #fff;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        border: 3px solid #007bff;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      }
+
+      /* This class makes the dots visible when button is clicked */
+      .Hotspot.show-point {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+
+    <button id="info-master-button">Show Info Points</button>
+
+    <model-viewer id="konark-viewer" 
+                  src="finalKonark-v1 (4).glb" 
+                  ar ar-modes="webxr scene-viewer quick-look" 
+                  camera-controls 
+                  tone-mapping="neutral" 
+                  poster="poster.webp" 
+                  shadow-intensity="1">
+
+      <button class="Hotspot" slot="hotspot-1" data-position="0.11996549136712897m -0.660297867924796m -4.4235828999931535m" data-normal="-0.947823850017628m 0.25515014115177137m 0.1911239252631453m">
+          <div class="HotspotAnnotation"><b>Main Tower (Vimana)</b>Principal shrine of the temple housing the main deity. Tallest structure, symbolizing Mount Meru. Built in the traditional Kalinga Rekha Deula style. Represents spiritual dominance and divine presence.</div>
+      </button>
+
+      <button class="Hotspot" slot="hotspot-2" data-position="1.036577382153329m -0.5674720091017866m -4.416159482058665m" data-normal="0.9401525064778996m 0.2853078229403957m 0.18631347437137996m">
+          <div class="HotspotAnnotation"><b>Main Tower (Vimana)</b>Principal shrine of the temple housing the main deity. Tallest structure, symbolizing Mount Meru. Built in the traditional Kalinga Rekha Deula style. Represents spiritual dominance and divine presence.</div>
+      </button>
+
+      <button class="Hotspot" slot="hotspot-3" data-position="0.8600527644693159m -1.810127178146242m -3.6297291483192353m" data-normal="0.9944476538041479m 0.09018357827068177m -0.054229014869548106m">
+          <div class="HotspotAnnotation"><b>Subsidiary Towers</b>Smaller supporting towers surrounding the main shrine. Follow the traditional Kalinga temple layout. Provide visual balance and structural harmony. Often associated with subsidiary deities.</div>
+      </button>
+
+      <button class="Hotspot" slot="hotspot-5" data-position="-0.37826918008487875m -1.7633185397736653m -4.344624581895653m" data-normal="-0.9775031129394942m 0.10297211283885144m 0.1840771799303251m">
+          <div class="HotspotAnnotation"><b>Subsidiary Towers</b>Smaller supporting towers surrounding the main shrine. Follow the traditional Kalinga temple layout. Provide visual balance and structural harmony. Often associated with subsidiary deities.</div>
+      </button>
+
+      <button class="Hotspot" slot="hotspot-7" data-position="0.8542837741519639m -1.957261798408358m -1.2470051002202132m" data-normal="-0.07848740415918834m 0.4769908079952241m 0.8753967651736072m">
+          <div class="HotspotAnnotation"><b>Jagamohana (Assembly Hall)</b>Congregational hall where devotees gather for worship. Located between the entrance and the main shrine. Designed to accommodate large groups safely. Acts as a transition space to the sanctum.</div>
+      </button>
+
+      <button class="Hotspot" slot="hotspot-9" data-position="-0.507225121310278m -2.125322541126483m -2.015098956156416m" data-normal="-0.9068184247570564m 0.4181626190721036m 0.05310714200453255m">
+          <div class="HotspotAnnotation"><b>Jagamohana (Assembly Hall)</b>Congregational hall where devotees gather for worship. Located between the entrance and the main shrine. Designed to accommodate large groups safely. Acts as a transition space to the sanctum.</div>
+      </button>
+
+      <button class="Hotspot" slot="hotspot-10" data-position="0.5187906325037172m -3.7098099554956656m -0.5154049424781284m" data-normal="0.01908744330093676m 0.2493435412024196m 0.968226971308314m">
+          <div class="HotspotAnnotation"><b>Temple Entrance</b>Ceremonial gateway aligned with the sun’s path. Marks the formal entry into the temple complex. Used during rituals and processions. Symbolizes the shift from outer to sacred space.</div>
+      </button>
+
+      <button class="Hotspot" slot="hotspot-12" data-position="0.5360795957505438m -3.453914319217133m -4.229035932376426m" data-normal="0.008220999659640823m 0.03487495039243339m 0.9993578703346073m">
+          <div class="HotspotAnnotation"><b>Dedicated to Surya</b>The temple is dedicated to Surya, the Hindu Sun God. Surya is worshipped as the source of life, energy, and time. The original statue depicted Surya standing, holding lotus flowers, symbolizing purity.</div>
+      </button>
+
+    </model-viewer> 
+
+    <script>
+      const viewer = document.querySelector("#konark-viewer");
+      const hotspots = document.querySelectorAll(".Hotspot");
+      const masterBtn = document.querySelector("#info-master-button");
+
+      // LOGIC: Toggle the visibility of the points
+      masterBtn.addEventListener('click', () => {
+        const pointsShown = hotspots[0].classList.contains('show-point');
+        
+        hotspots.forEach(h => {
+          h.classList.toggle('show-point');
+          // Close description if we hide the points
+          h.classList.remove('active');
+        });
+
+        // Change button text based on state
+        masterBtn.textContent = pointsShown ? "Show Info Points" : "Hide Info Points";
+      });
+
+      // LOGIC: Click a point to see its specific text
+      hotspots.forEach((hotspot) => {
+        hotspot.addEventListener('click', (event) => {
+          event.stopPropagation();
+          const isActive = hotspot.classList.contains('active');
+          hotspots.forEach(h => h.classList.remove('active'));
+          if (!isActive) hotspot.classList.add('active');
+        });
+      });
+
+      // Close description if clicking background
+      viewer.addEventListener('click', () => {
+        hotspots.forEach(h => h.classList.remove('active'));
+      });
+    </script>
+
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  </body>
+</html>
