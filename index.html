@@ -1,127 +1,123 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>Konark Temple Interactive</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    
-    <style>
-      body, html {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background-color: #f5f5f5;
-      }
+<head>
+  <title>Konark Sun Temple – Interactive 3D Model</title>
 
-      model-viewer {
-        width: 100%;
-        height: 100vh;
-      }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      /* MASTER TOGGLE BUTTON */
-      #info-master-button {
-        position: fixed;
-        top: 15px;
-        right: 15px;
-        z-index: 9999;
-        padding: 12px 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 25px;
-        font-family: 'Segoe UI', sans-serif;
-        font-size: 14px;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      }
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+    }
 
-      /* Information Box Styling */
+    model-viewer {
+      width: 100%;
+      height: 90vh;
+      background-color: #f5f5f5;
+    }
+
+    /* NEW: Show/Hide Toggle Button */
+    #toggle-points-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    #toggle-points-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Hotspot Button */
+    .Hotspot {
+      background: #ffffff;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      border: 3px solid #007bff;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+      display: block; /* Visible by default */
+    }
+
+    /* Class to hide hotspots */
+    .Hotspot.hidden {
+      display: none;
+    }
+
+    .Hotspot:hover {
+      transform: scale(1.15);
+    }
+
+    /* Annotation Box */
+    .HotspotAnnotation {
+      display: none;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      padding: 15px;
+      position: absolute;
+      width: 280px;
+      left: 30px;
+      top: -20px;
+      color: #333;
+      line-height: 1.5;
+      z-index: 100;
+      pointer-events: auto;
+    }
+
+    /* Show annotation when active */
+    .active .HotspotAnnotation {
+      display: block;
+    }
+
+    h3 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      color: #007bff;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 600px) {
       .HotspotAnnotation {
-        display: none; 
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.25);
-        padding: 12px;
-        position: absolute;
-        width: 200px;
-        left: 20px;
-        top: -10px;
-        color: #333;
-        font-family: sans-serif;
+        width: 220px;
         font-size: 13px;
-        line-height: 1.4;
-        z-index: 1000;
-        pointer-events: none;
-        border-left: 4px solid #007bff;
       }
+    }
+  </style>
+</head>
 
-      .HotspotAnnotation b {
-        display: block;
-        color: #007bff;
-        margin-bottom: 4px;
-      }
+<body>
 
-      .Hotspot.active .HotspotAnnotation {
-        display: block !important;
-      }
+  <button id="toggle-points-btn">Hide Info Points</button>
 
-      /* Hotspot Dots */
-      .Hotspot {
-        display: none; 
-        background: #fff;
-        border-radius: 50%;
-        width: 22px;
-        height: 22px;
-        border: 3px solid #007bff;
-        cursor: pointer;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-      }
+  <model-viewer
+    id="konark-viewer"
+    src="finalKonark-v1 (4).glb"
+    ar
+    ar-modes="scene-viewer webxr quick-look"
+    camera-controls
+    shadow-intensity="1"
+    exposure="1">
 
-      .Hotspot.show-point {
-        display: block;
-      }
-
-      /* AR BUTTON STYLING */
-      #ar-button {
-        background-color: #fff;
-        border-radius: 8px;
-        border: 1px solid #dadce0;
-        bottom: 20px;
-        color: #4285f4;
-        font-family: 'Segoe UI', sans-serif;
-        font-size: 14px;
-        font-weight: 500;
-        height: 36px;
-        left: 50%;
-        padding: 0 16px;
-        position: absolute;
-        transform: translateX(-50%);
-        white-space: nowrap;
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    </style>
-  </head>
-  <body>
-
-    <button id="info-master-button">Show Info Points</button>
-
-    <model-viewer id="konark-viewer" 
-                  src="finalKonark-v1 (4).glb" 
-                  ar 
-                  ar-modes="webxr scene-viewer quick-look" 
-                  camera-controls 
-                  interaction-prompt="auto"
-                  ar-placement="floor"
-                  shadow-intensity="1"
-                  tone-mapping="neutral"
-                  poster="poster.webp">
-
+    
       <button class="Hotspot" slot="hotspot-1" data-position="0.11996549136712897m -0.660297867924796m -4.4235828999931535m" data-normal="-0.947823850017628m 0.25515014115177137m 0.1911239252631453m">
           <div class="HotspotAnnotation"><b>Main Tower (Vimana)</b>Principal shrine of the temple housing the main deity. Tallest structure, symbolizing Mount Meru. Built in the traditional Kalinga Rekha Deula style. Represents spiritual dominance and divine presence.</div>
       </button>
@@ -153,43 +149,46 @@
       <button class="Hotspot" slot="hotspot-12" data-position="0.5360795957505438m -3.453914319217133m -4.229035932376426m" data-normal="0.008220999659640823m 0.03487495039243339m 0.9993578703346073m">
           <div class="HotspotAnnotation"><b>Dedicated to Surya</b>The temple is dedicated to Surya, the Hindu Sun God. Surya is worshipped as the source of life, energy, and time. The original statue depicted Surya standing, holding lotus flowers, symbolizing purity.</div>
       </button>
+  </model-viewer>
 
-      <button slot="ar-button" id="ar-button">
-         👋 View in your space
-      </button>
+  <script>
+    const hotspots = document.querySelectorAll(".Hotspot");
+    const toggleBtn = document.getElementById("toggle-points-btn");
 
-    </model-viewer> 
+    // NEW: Toggle visibility of all points
+    toggleBtn.addEventListener("click", () => {
+      const isHidden = hotspots[0].classList.toggle("hidden");
+      hotspots.forEach((h, index) => {
+        if (index > 0) h.classList.toggle("hidden", isHidden);
+        h.classList.remove("active"); // Also close any open text boxes
+      });
+      toggleBtn.textContent = isHidden ? "Show Info Points" : "Hide Info Points";
+    });
 
-    <script>
-      const viewer = document.querySelector("#konark-viewer");
-      const hotspots = document.querySelectorAll(".Hotspot");
-      const masterBtn = document.querySelector("#info-master-button");
+    hotspots.forEach((hotspot) => {
+      hotspot.addEventListener("click", (event) => {
+        // Prevent model rotation
+        event.stopPropagation();
 
-      // MASTER TOGGLE
-      masterBtn.addEventListener('click', () => {
-        const pointsShown = hotspots[0].classList.contains('show-point');
+        // Close other annotations
         hotspots.forEach(h => {
-          h.classList.toggle('show-point');
-          h.classList.remove('active');
+          if (h !== hotspot) h.classList.remove("active");
         });
-        masterBtn.textContent = pointsShown ? "Show Info Points" : "Hide Info Points";
-      });
 
-      // INDIVIDUAL HOTSPOTS
-      hotspots.forEach((hotspot) => {
-        hotspot.addEventListener('click', (event) => {
-          event.stopPropagation();
-          const isActive = hotspot.classList.contains('active');
-          hotspots.forEach(h => h.classList.remove('active'));
-          if (!isActive) hotspot.classList.add('active');
-        });
+        // Toggle current
+        hotspot.classList.toggle("active");
       });
+    });
 
-      // CLOSE ON TAP MODEL
-      viewer.addEventListener('click', () => {
-        hotspots.forEach(h => h.classList.remove('active'));
-      });
-    </script>
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-  </body>
+    // Close all annotations when clicking outside
+    document.addEventListener("click", () => {
+      hotspots.forEach(h => h.classList.remove("active"));
+    });
+  </script>
+
+  <script type="module"
+    src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js">
+  </script>
+
+</body>
 </html>
